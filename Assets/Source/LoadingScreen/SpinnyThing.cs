@@ -7,6 +7,6 @@ public class SpinnyThing : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, 0, 0.05f);
+        transform.Rotate(0, 0, -0.05f);
     }
 }
