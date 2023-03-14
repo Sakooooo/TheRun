@@ -5,62 +5,23 @@ using UnityEngine.SceneManagement;
 public class Loader : MonoBehaviour
 {
 
-    public new string name = "MainMenu";
+  public string name = "MainMenu";
+  
+// https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.LoadSceneAsync.html
+  void Update()
+  {
+    StartCoroutine(LoadSceneAsync());
+  }
 
-    void Start()
+  IEnumerator LoadSceneAsync()
+  {
+    AsyncOperation ASyncLoad = SceneManager.LoadSceneAsync(name);
+
+    while (!ASyncLoad.isDone)
     {
-//        LevelLoader(0);  
-
-//   I need to use this more :eyes:
-     if (Debug.isDebugBuild)
-     {
-     Debug.Log("Loader.cs INFO: Loading " + name);
-     }
-
-    StartCoroutine(LevelLoader(name));
+      yield return null;
     }
-    
-// TODO:: Make function that can get grabbed by other scenes to show level name
-
-    public void LevelLoader (string name)
-    {
-      LoadASynchronously(name);
-    }
-
-    IEnumerator LoadASynchronously (string name)
-    {
-      AsyncOperation LoadStatus = SceneManager.LoadSceneAsync(name);
-
-      while (!LoadStatus.isDone)
-      {
-        float progress = Mathf.Clamp01(LoadStatus.progress / .9f);
-        Debug.Log(progress);
-
-        yield return null;
-      }
-    }
+  }
 
 
-// makes code unreadable and painful D:
-/*
-    int SceneIndex = 2;
-
-    public void LevelLoader (int SceneIndex)
-    {
-        StartCoroutine(LoadASynchronously(SceneIndex));
-    }
-
-    IEnumerator LoadASynchronously (int SceneIndex)
-    {
-        AsyncOperation LoadStatus = SceneManager.LoadSceneAsync(SceneIndex);
-
-        while (!LoadStatus.isDone)
-        {
-            float progress = Mathf.Clamp01(LoadStatus.progress / .9f);
-            Debug.Log(progress);
-
-            yield return null;
-        }
-    }
-*/
 }
