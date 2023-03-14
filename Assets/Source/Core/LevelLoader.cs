@@ -2,12 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Loader : MonoBehaviour
+public class LevelLoader: MonoBehaviour
 {
-
-  public string name = "MainMenu";
+  // apparently not adding new hides this???
+  public new string name = "MainMenu";
   
 // https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.LoadSceneAsync.html
+// i love reading documentation and im being serious sometimes its actually fun
   void Update()
   {
     if (UnityEngine.Debug.isDebugBuild)
